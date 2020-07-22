@@ -2,6 +2,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:orientation="vertical"
@@ -20,6 +22,7 @@
                 android:src="@drawable/ic_menu_black_24dp"
                 android:contentDescription="菜单"/>
             <com.google.android.material.textfield.TextInputLayout
+                app:hintEnabled="false"
                 android:padding="4dp"
                 android:id="@+id/url_input"
                 android:layout_weight="1"
@@ -52,67 +55,109 @@
             android:background="@android:drawable/divider_horizontal_dim_dark"
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+        <LinearLayout
+            android:background="?android:colorBackground"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/bottom_sheet_behavior">
-            <LinearLayout
-                android:background="?android:colorBackground"
-                android:layout_width="match_parent"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/backward"
                 android:padding="8dp"
-                android:layout_height="wrap_content">
-                <ImageButton
-                    android:id="@+id/backward"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_navigate_before_black_24dp"
-                    android:layout_width="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="后退"/>
-                <ImageButton
-                    android:id="@+id/forward"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_navigate_next_black_24dp"
-                    android:layout_width="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="前进"/>
-                <ImageButton
-                    android:src="@drawable/ic_unfold_more_black_24dp"
-                    android:id="@+id/more"
-                    android:padding="8dp"
-                    android:layout_width="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="更多"/>
-                <ImageButton
-                    android:id="@+id/source"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_source_file_black_24dp"
-                    android:layout_width="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="源码"/>
-                <ImageButton
-                    android:id="@+id/refresh"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_refresh_black_24dp"
-                    android:layout_width="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="刷新"/>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                android:src="@drawable/ic_navigate_before_black_24dp"
+                android:layout_width="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="后退"/>
+            <ImageButton
+                android:id="@+id/forward"
+                android:padding="8dp"
+                android:src="@drawable/ic_navigate_next_black_24dp"
+                android:layout_width="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="前进"/>
+            <ImageButton
+                android:src="@drawable/ic_unfold_more_black_24dp"
+                android:id="@+id/more"
+                android:padding="8dp"
+                android:layout_width="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="更多"/>
+            <ImageButton
+                android:id="@+id/source"
+                android:padding="8dp"
+                android:src="@drawable/ic_source_file_black_24dp"
+                android:layout_width="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="源码"/>
+            <ImageButton
+                android:id="@+id/refresh"
+                android:padding="8dp"
+                android:src="@drawable/ic_refresh_black_24dp"
+                android:layout_width="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="刷新"/>
+        </LinearLayout>
     </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bottom_sheet"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/console_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:clickable="false">
+            </androidx.recyclerview.widget.RecyclerView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <View
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/pider_list"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/console_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/console_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autofillHints="console"
+                    android:background="@null"
+                    android:hint="console"
+                    android:inputType="text"
+                    android:paddingBottom="8dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
